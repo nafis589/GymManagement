@@ -34,7 +34,7 @@ public class MemberDAO {
              ResultSet rs = st.executeQuery(query)) {
             while (rs.next()) {
                 members.add(new Member(
-                    rs.getInt("id"),
+                    rs.getInt("id_abonne"),
                     rs.getString("nom"),
                     rs.getString("prenom"),
                     rs.getDate("date_inscription"),
@@ -47,14 +47,14 @@ public class MemberDAO {
     }
 
     public Member getMemberById(int id) throws SQLException {
-        String query = "SELECT * FROM abonne WHERE id = ?";
+        String query = "SELECT * FROM abonne WHERE id_abonne = ?";
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement pst = connection.prepareStatement(query)) {
             pst.setInt(1, id);
             try (ResultSet rs = pst.executeQuery()) {
                 if (rs.next()) {
                     return new Member(
-                        rs.getInt("id"),
+                        rs.getInt("id_abonne"),
                         rs.getString("nom"),
                         rs.getString("prenom"),
                         rs.getDate("date_inscription"),
@@ -68,7 +68,7 @@ public class MemberDAO {
     }
 
     public void updateMember(Member member) throws SQLException {
-        String query = "UPDATE abonne SET nom=?, prenom=?, numero_telephone=?, statut_souscription=? WHERE id=?";
+        String query = "UPDATE abonne SET nom=?, prenom=?, numero_telephone=?, statut_souscription=? WHERE id_abonne=?";
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement pst = connection.prepareStatement(query)) {
             pst.setString(1, member.getLastName());
@@ -81,7 +81,7 @@ public class MemberDAO {
     }
 
     public void deleteMember(int id) throws SQLException {
-        String query = "DELETE FROM abonne WHERE id=?";
+        String query = "DELETE FROM abonne WHERE id_abonne=?";
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement pst = connection.prepareStatement(query)) {
             pst.setInt(1, id);

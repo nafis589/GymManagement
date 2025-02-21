@@ -30,7 +30,7 @@ public class SubscriptionDAO {
              ResultSet rs = st.executeQuery(query)) {
             while (rs.next()) {
                 subscriptions.add(new Subscription(
-                    rs.getInt("id"),
+                    rs.getInt("id_abonnement"),
                     rs.getString("libelle"),
                     rs.getInt("duree_mois"),
                     rs.getDouble("prix_mensuel")
@@ -41,7 +41,7 @@ public class SubscriptionDAO {
     }
 
     public void updateSubscription(Subscription subscription) throws SQLException {
-        String query = "UPDATE abonnement SET libelle=?, duree_mois=?, prix_mensuel=? WHERE id=?";
+        String query = "UPDATE abonnement SET libelle=?, duree_mois=?, prix_mensuel=? WHERE id_abonnement=?";
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement pst = connection.prepareStatement(query)) {
             pst.setString(1, subscription.getOfferName());
@@ -53,7 +53,7 @@ public class SubscriptionDAO {
     }
 
     public void deleteSubscription(int id) throws SQLException {
-        String query = "DELETE FROM abonnement WHERE id=?";
+        String query = "DELETE FROM abonnement WHERE id_abonnement=?";
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement pst = connection.prepareStatement(query)) {
             pst.setInt(1, id);

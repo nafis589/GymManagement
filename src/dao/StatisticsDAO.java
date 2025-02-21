@@ -23,8 +23,8 @@ public class StatisticsDAO {
 
     public double getMonthlyRevenue() throws SQLException {
         String query = "SELECT SUM(a.prix_mensuel) FROM abonnement a " +
-                      "INNER JOIN souscription s ON a.id = s.id_abonnement " +
-                      "INNER JOIN abonne m ON s.id_abonne = m.id " +
+                      "INNER JOIN souscription s ON a.id_abonnement = s.id_abonnement " +
+                      "INNER JOIN abonne m ON s.id_abonne = m.id_abonne " +
                       "WHERE m.statut_souscription = true";
         try (Connection connection = DatabaseConnection.getConnection();
              Statement st = connection.createStatement();
